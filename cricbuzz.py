@@ -9,7 +9,9 @@ class CricbuzzParser():
        
     def getXml(self):
         #Change coding here
-        f = urllib2.urlopen("http://synd.cricbuzz.com/j2me/1.0/livematches.xml")
+        url = "http://synd.cricbuzz.com/j2me/1.0/livematches.xml"
+        req = urllib2.Request(url, headers={'User-agent': 'Mozilla/5.0'}) 
+        f = urllib2.urlopen(req)
         doc = xml.dom.minidom.parse(f)
         node = doc.documentElement
         matches = node.getElementsByTagName("match")
@@ -111,3 +113,4 @@ if __name__ == '__main__':
     match = cric.getXml()
     details = cric.handleMatches(match) #Returns Match details as a Dictionary. Parse it according to requirements.
     print details
+
