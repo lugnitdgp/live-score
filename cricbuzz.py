@@ -1,5 +1,5 @@
 import xml.dom.minidom
-import urllib2
+import urllib.request
 
 class CricbuzzParser():
     
@@ -10,8 +10,8 @@ class CricbuzzParser():
     def getXml(self):
         #Change coding here
         url = "http://synd.cricbuzz.com/j2me/1.0/livematches.xml"
-        req = urllib2.Request(url, headers={'User-agent': 'Mozilla/5.0'}) 
-        f = urllib2.urlopen(req)
+        req = urllib.request.Request(url, headers={'User-agent': 'Mozilla/5.0'}) 
+        f = urllib.request.urlopen(req)
         doc = xml.dom.minidom.parse(f)
         node = doc.documentElement
         matches = node.getElementsByTagName("match")
@@ -107,10 +107,4 @@ class CricbuzzParser():
             # The opponent team hasn't yet started to Bat.
             pass
         return { "Series": series, "Match Format": mtype, "Team":match_desc, "Venue":mground, "Match State":match_cstate,"Match Status":mstatus, "Batting team":batting_team_name, "Bowling team":bowling_team_name, "Batting Team Runs":bat_runs, "Batting Team Overs":bat_overs, "Batting Team Wickets":bat_wkts, "Bowling Team Runs":bowl_runs, "Bowling Team Overs": bowl_overs, "Bowling Team Wickets": bowl_wkts }
-
-if __name__ == '__main__':
-    cric = CricbuzzParser()
-    match = cric.getXml()
-    details = cric.handleMatches(match) #Returns Match details as a Dictionary. Parse it according to requirements.
-    print details
 

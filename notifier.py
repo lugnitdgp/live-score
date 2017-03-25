@@ -1,15 +1,15 @@
 #!usr/bin/bash
-from gi.repository import Notify
 from cricbuzz import *
-import time
 from twilio.rest import TwilioRestClient
+import notify2
+import time
 
-accountSid = ""
-authToken = ""
+accountSid = "AC6d6587b8dc3af6a7dd4a5cd7adb06277"
+authToken = "574b97ea96d4997a4088bcab1ad8dfb8"
 twilioClient = TwilioRestClient(accountSid, authToken)
-Notify.init("Live Scores")
-myTwilioNumber = "+999"
-destCellPhone = "+999"
+notify2.init("Live Scores")
+myTwilioNumber = "+18036757939"
+destCellPhone = "+919674825450"
 cric = CricbuzzParser()
 
 def handleTestMatch(**match):
@@ -21,7 +21,7 @@ def displayScore():
   try:
    match = cric.getXml()
   except Exception:
-   Notify.Notification.new("Error: ","No Internet").show()
+   notify2.Notification("Error: ","No Internet").show()
    exit()
   details = cric.handleMatches(match)
   details = filter(None,details)
@@ -40,7 +40,7 @@ def displayScore():
              count+=1
   if count == 0 :
      message='No Match Available'
-  Notify.Notification.new("Score Update: ",message).show()
+  notify2.Notification("Score Update: ",message).show()
   myMessage = twilioClient.messages.create(body = "Score Update:" + message, from_=myTwilioNumber, to=destCellPhone)
   if not message == 'No Match Available':
        time.sleep(30)
