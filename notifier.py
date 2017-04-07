@@ -1,15 +1,15 @@
-#!usr/bin/bash
+#!usr/bin/python3
 from cricbuzz import *
 from twilio.rest import TwilioRestClient
 import notify2
 import time
 
-accountSid = "AC6d6587b8dc3af6a7dd4a5cd7adb06277"
-authToken = "574b97ea96d4997a4088bcab1ad8dfb8"
+accountSid = ""
+authToken = ""
 twilioClient = TwilioRestClient(accountSid, authToken)
 notify2.init("Live Scores")
-myTwilioNumber = "+18036757939"
-destCellPhone = "+919674825450"
+myTwilioNumber = ""
+destCellPhone = ""
 cric = CricbuzzParser()
 
 def handleTestMatch(**match):
@@ -49,4 +49,8 @@ def displayScore():
 
 if __name__=='__main__':
   while True:
+   try:
     displayScore()
+   except KeyboardInterrupt:
+    print("Goodbye!")
+    exit()
