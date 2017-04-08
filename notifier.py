@@ -13,11 +13,16 @@ destCellPhone = ""
 cric = CricbuzzParser()
 
 def handleTestMatch(**match):
+  """This function creates an appropriate message for a 
+  Test Match"""
+  message = ""
   if match['State']:
-    s = match['Match']+ "      Test Match at "+match['Venue']+"\n"+match['Status']
-  return s
+    message = match['Match']+ "      Test Match at "+match['Venue']+"\n"+match['Status']
+  return message
 
 def displayScore():
+  """To get the details of matches as a dictionary from the CricbuzzParser
+  and display the Notification"""
   try:
    match = cric.getXml()
   except Exception:

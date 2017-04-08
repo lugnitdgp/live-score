@@ -8,7 +8,8 @@ class CricbuzzParser():
         pass
        
     def getXml(self):
-        #Change coding here
+        """This function retrieves the scores in the form
+        of an XML sheet and parses it as a DOM Object"""
         url = "http://synd.cricbuzz.com/j2me/1.0/livematches.xml"
         req = urllib.request.Request(url, headers={'User-agent': 'Mozilla/5.0'}) 
         f = urllib.request.urlopen(req)
@@ -44,8 +45,7 @@ class CricbuzzParser():
         return match_details
 
     def handleTestMatch(self,match):
-        """For handling Test Matches.
-        To Do: Write Code for Parsing Innings detail"""
+        """For handling Test Matches."""
         series = match.getAttribute("srs")
         mtype = match.getAttribute("type")
         if mtype != "TEST":
